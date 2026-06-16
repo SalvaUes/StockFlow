@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginAppBase</string>
+    <string name="app_name">StockFlow</string>
     <!-- Textos para la app -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="usuario_text">Usuario: %1$s</string>

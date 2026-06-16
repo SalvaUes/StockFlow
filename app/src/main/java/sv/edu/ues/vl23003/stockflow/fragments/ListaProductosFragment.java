@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import sv.edu.ues.vl23003.stockflow.Adapter.ProductoAdapter;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
 import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
+import sv.edu.ues.vl23003.stockflow.database.ProductoRepository;
 import sv.edu.ues.vl23003.stockflow.databinding.FragmentListaProductosBinding;
 
 public class ListaProductosFragment extends Fragment {
@@ -101,11 +102,11 @@ public class ListaProductosFragment extends Fragment {
 
     private void cargarProductos() {
 
-        ProductoDAO dao =
-                new ProductoDAO(requireContext());
+        ProductoRepository repository =
+                new ProductoRepository(requireContext());
 
         ArrayList<Producto> lista =
-                dao.obtenerTodos();
+                repository.obtenerTodos();
 
         if(lista.isEmpty()){
 
@@ -156,18 +157,15 @@ public class ListaProductosFragment extends Fragment {
     }
     private void buscarProductos(String texto){
 
-        ProductoDAO dao =
-                new ProductoDAO(requireContext());
+        ProductoRepository repository =
+                new ProductoRepository(requireContext());
 
         ArrayList<Producto> lista;
 
         if(texto.isEmpty()){
-
-            lista = dao.obtenerTodos();
-
+            lista = repository.obtenerTodos();
         }else{
-
-            lista = dao.buscar(texto);
+            lista = repository.buscar(texto);
         }
         if(lista.isEmpty()){
 
@@ -214,11 +212,11 @@ public class ListaProductosFragment extends Fragment {
 
     private void filtrarCategoria(String categoria){
 
-        ProductoDAO dao =
-                new ProductoDAO(requireContext());
+        ProductoRepository repository =
+                new ProductoRepository(requireContext());
 
         ArrayList<Producto> lista =
-                dao.obtenerTodos();
+                repository.obtenerTodos();
 
         ArrayList<Producto> filtrada =
                 new ArrayList<>();

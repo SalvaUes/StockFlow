@@ -9,14 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import sv.edu.ues.vl23003.stockflow.R;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
-import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
+import sv.edu.ues.vl23003.stockflow.database.ProductoRepository;
 import sv.edu.ues.vl23003.stockflow.databinding.ActivityDetalleProductoBinding;
 
-public class DetalleProductoActivity
-        extends AppCompatActivity {
+public class DetalleProductoActivity extends AppCompatActivity {
 
     private ActivityDetalleProductoBinding binding;
-
     private Producto producto;
 
     @Override
@@ -24,62 +22,64 @@ public class DetalleProductoActivity
 
         super.onCreate(savedInstanceState);
 
-        binding =
-                ActivityDetalleProductoBinding.inflate(
-                        getLayoutInflater()
-                );
+        binding = ActivityDetalleProductoBinding.inflate(
+                getLayoutInflater()
+        );
 
         setContentView(binding.getRoot());
 
-        int id =
-                getIntent()
-                        .getIntExtra("id",0);
+        int id = getIntent().getIntExtra("id", 0);
 
-        ProductoDAO dao =
-                new ProductoDAO(this);
+        ProductoRepository repository =
+                new ProductoRepository(this);
 
-        producto =
-                dao.obtenerPorId(id);
+        producto = repository.obtenerPorId(id);
 
-        cargar();
+        if(producto != null){
+            cargar();
+        }
 
-        binding.btnEliminar
-                .setOnClickListener(v -> eliminar());
+        binding.btnEliminar.setOnClickListener(
+                v -> eliminar()
+        );
 
-        binding.btnVolver.setOnClickListener(v -> finish());
+        binding.btnVolver.setOnClickListener(
+                v -> finish()
+        );
 
-        binding.btnEditar
-                .setOnClickListener(v -> {
+        binding.btnEditar.setOnClickListener(v -> {
 
-                    Intent intent =
-                            new Intent(
-                                    this,
-                                    EditarProductoActivity.class
-                            );
+            Intent intent = new Intent(
+                    this,
+                    EditarProductoActivity.class
+            );
 
-                    intent.putExtra(
-                            "id",
-                            producto.getId()
-                    );
+            intent.putExtra(
+                    "id",
+                    producto.getId()
+            );
 
-                    startActivity(intent);
-                });
+            startActivity(intent);
+        });
     }
 
     @Override
     protected void onResume() {
+
         super.onResume();
 
-        ProductoDAO dao =
-                new ProductoDAO(this);
-
-        producto =
-                dao.obtenerPorId(
-                        producto.getId()
-                );
-
         if(producto != null){
-            cargar();
+
+            ProductoRepository repository =
+                    new ProductoRepository(this);
+
+            producto = repository.obtenerPorId(
+                    producto.getId()
+            );
+
+            if(producto != null){
+                cargar();
+            }
         }
     }
 
@@ -102,7 +102,7 @@ public class DetalleProductoActivity
         );
 
         binding.tvStock.setText(
-                producto.getStock() + ""
+                String.valueOf(producto.getStock())
         );
 
         binding.tvEstado.setText(
@@ -111,14 +111,13 @@ public class DetalleProductoActivity
 
         try {
 
-            if (producto.getImagen() != null &&
+            if(producto.getImagen() != null &&
                     !producto.getImagen().isEmpty()) {
 
                 binding.imgProducto.setImageURI(
-                        Uri.parse(
-                                producto.getImagen()
-                        )
+                        Uri.parse(producto.getImagen())
                 );
+
             } else {
 
                 binding.imgProducto.setImageResource(
@@ -126,7 +125,7 @@ public class DetalleProductoActivity
                 );
             }
 
-        } catch (Exception e) {
+        } catch (Exception e){
 
             binding.imgProducto.setImageResource(
                     R.drawable.ic_inventory_24
@@ -134,7 +133,7 @@ public class DetalleProductoActivity
         }
     }
 
-    private void eliminar(){
+    private void eliminar() {
 
         new AlertDialog.Builder(this)
                 .setTitle("Eliminar")
@@ -143,14 +142,12 @@ public class DetalleProductoActivity
                 )
                 .setPositiveButton(
                         "Eliminar",
-                        (d,w)->{
+                        (dialog, which) -> {
 
-                            ProductoDAO dao =
-                                    new ProductoDAO(this);
+                            ProductoRepository repository =
+                                    new ProductoRepository(this);
 
-                            dao.eliminar(
-                                    producto.getId()
-                            );
+                            repository.eliminar(producto);
 
                             finish();
                         }

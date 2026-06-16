@@ -12,14 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import sv.edu.ues.vl23003.stockflow.R;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
-import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
+import sv.edu.ues.vl23003.stockflow.database.ProductoRepository;
 import sv.edu.ues.vl23003.stockflow.databinding.ActivityEditarProductoBinding;
 
 public class EditarProductoActivity extends AppCompatActivity {
 
     private ActivityEditarProductoBinding binding;
 
-    private ProductoDAO dao;
+    private ProductoRepository repository;
     private Producto producto;
 
     private String imagenSeleccionada = "";
@@ -31,23 +31,19 @@ public class EditarProductoActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
-        binding =
-                ActivityEditarProductoBinding.inflate(
-                        getLayoutInflater()
-                );
+        binding = ActivityEditarProductoBinding.inflate(
+                getLayoutInflater()
+        );
 
         setContentView(binding.getRoot());
 
-        dao = new ProductoDAO(this);
+        repository = new ProductoRepository(this);
 
         configurarGaleria();
 
-        int id =
-                getIntent()
-                        .getIntExtra("id", 0);
+        int id = getIntent().getIntExtra("id", 0);
 
-        producto =
-                dao.obtenerPorId(id);
+        producto = repository.obtenerPorId(id);
 
         if(producto != null){
             cargarDatos();
@@ -82,7 +78,7 @@ public class EditarProductoActivity extends AppCompatActivity {
         return "";
     }
 
-    private void cargarDatos(){
+    private void cargarDatos() {
 
         binding.etNombre.setText(
                 producto.getNombre()
@@ -104,30 +100,26 @@ public class EditarProductoActivity extends AppCompatActivity {
                 String.valueOf(producto.getStockMinimo())
         );
 
-        imagenSeleccionada =
-                producto.getImagen();
+        imagenSeleccionada = producto.getImagen();
 
-        try{
+        try {
 
-            if(imagenSeleccionada != null
-                    && !imagenSeleccionada.isEmpty()){
+            if(imagenSeleccionada != null &&
+                    !imagenSeleccionada.isEmpty()) {
 
                 binding.imgProducto.setImageURI(
                         Uri.parse(imagenSeleccionada)
                 );
             }
 
-        }catch (Exception e) {
+        } catch (Exception e){
 
             binding.imgProducto.setImageResource(
                     android.R.drawable.ic_menu_gallery
             );
         }
 
-        String categoria =
-                producto.getCategoria();
-
-        switch (categoria){
+        switch (producto.getCategoria()) {
 
             case "Electrónica":
                 binding.chipElectronica.setChecked(true);
@@ -151,41 +143,36 @@ public class EditarProductoActivity extends AppCompatActivity {
         }
     }
 
+    private void configurarGaleria() {
 
-    private void configurarGaleria(){
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
 
-        launcher =
-                registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
+                    if(result.getResultCode()
+                            == Activity.RESULT_OK) {
 
-                            if(result.getResultCode()
-                                    == Activity.RESULT_OK){
+                        Intent data = result.getData();
 
-                                Intent data =
-                                        result.getData();
+                        if(data != null &&
+                                data.getData() != null) {
 
-                                if(data != null){
+                            Uri uri = data.getData();
 
-                                    Uri uri = data.getData();
+                            getContentResolver()
+                                    .takePersistableUriPermission(
+                                            uri,
+                                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    );
 
-                                    if(uri != null){
+                            imagenSeleccionada =
+                                    uri.toString();
 
-                                        getContentResolver()
-                                                .takePersistableUriPermission(
-                                                        uri,
-                                                        Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                                );
-
-                                        imagenSeleccionada =
-                                                uri.toString();
-
-                                        binding.imgProducto
-                                                .setImageURI(uri);
-                                    }
-                                }
-                            }
-                        });
+                            binding.imgProducto
+                                    .setImageURI(uri);
+                        }
+                    }
+                });
 
         binding.btnImagen.setOnClickListener(v -> {
 
@@ -207,9 +194,9 @@ public class EditarProductoActivity extends AppCompatActivity {
         });
     }
 
-    private void actualizarProducto(){
+    private void actualizarProducto() {
 
-        try{
+        try {
 
             producto.setNombre(
                     binding.etNombre
@@ -255,7 +242,7 @@ public class EditarProductoActivity extends AppCompatActivity {
                     imagenSeleccionada
             );
 
-            dao.actualizar(producto);
+            repository.actualizar(producto);
 
             Toast.makeText(
                     this,
@@ -265,7 +252,7 @@ public class EditarProductoActivity extends AppCompatActivity {
 
             finish();
 
-        }catch (Exception e){
+        } catch (Exception e){
 
             Toast.makeText(
                     this,

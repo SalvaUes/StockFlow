@@ -1,8 +1,14 @@
 package sv.edu.ues.vl23003.stockflow.database;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "productos")
 public class Producto {
 
+    @PrimaryKey(autoGenerate = true)
     private int id;
+
     private String nombre;
     private String sku;
     private String categoria;
@@ -99,11 +105,11 @@ public class Producto {
 
     public String getEstado() {
 
-        if(stock == 0){
+        if (stock == 0) {
             return "Agotado";
         }
 
-        if(stock <= stockMinimo){
+        if (stock <= stockMinimo) {
             return "Bajo Stock";
         }
 

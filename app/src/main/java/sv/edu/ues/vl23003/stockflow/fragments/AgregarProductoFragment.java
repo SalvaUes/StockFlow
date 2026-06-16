@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import sv.edu.ues.vl23003.stockflow.R;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
-import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
+import sv.edu.ues.vl23003.stockflow.database.ProductoRepository;
 import sv.edu.ues.vl23003.stockflow.databinding.FragmentAgregarProductoBinding;
 
 public class AgregarProductoFragment extends Fragment {
@@ -33,12 +33,11 @@ public class AgregarProductoFragment extends Fragment {
             ViewGroup container,
             Bundle savedInstanceState) {
 
-        binding =
-                FragmentAgregarProductoBinding.inflate(
-                        inflater,
-                        container,
-                        false
-                );
+        binding = FragmentAgregarProductoBinding.inflate(
+                inflater,
+                container,
+                false
+        );
 
         configurarGaleria();
 
@@ -46,47 +45,41 @@ public class AgregarProductoFragment extends Fragment {
 
         return binding.getRoot();
     }
+
     private void configurarGaleria() {
 
-        launcher =
-                registerForActivityResult(
-                        new ActivityResultContracts.StartActivityForResult(),
-                        result -> {
+        launcher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
 
-                            if(result.getResultCode()
-                                    == Activity.RESULT_OK){
+                    if(result.getResultCode() == Activity.RESULT_OK){
 
-                                Intent data = result.getData();
+                        Intent data = result.getData();
 
-                                if(data != null){
+                        if(data != null){
 
-                                    Uri uri = data.getData();
+                            Uri uri = data.getData();
 
-                                    requireContext()
-                                            .getContentResolver()
-                                            .takePersistableUriPermission(
-                                                    uri,
-                                                    Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                            );
+                            requireContext()
+                                    .getContentResolver()
+                                    .takePersistableUriPermission(
+                                            uri,
+                                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    );
 
-                                    imagenSeleccionada =
-                                            uri.toString();
+                            imagenSeleccionada = uri.toString();
 
-                                    binding.imgProducto
-                                            .setImageURI(uri);
-                                }
-                            }
-                        });
-
+                            binding.imgProducto.setImageURI(uri);
+                        }
+                    }
+                });
 
         binding.btnImagen.setOnClickListener(v -> {
 
             Intent intent =
                     new Intent(Intent.ACTION_OPEN_DOCUMENT);
 
-            intent.addCategory(
-                    Intent.CATEGORY_OPENABLE
-            );
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
 
             intent.setType("image/*");
 
@@ -102,8 +95,7 @@ public class AgregarProductoFragment extends Fragment {
     private String obtenerCategoria() {
 
         int id =
-                binding.chipGroupCategoria
-                        .getCheckedChipId();
+                binding.chipGroupCategoria.getCheckedChipId();
 
         if(id == R.id.chipElectronica)
             return "Electrónica";
@@ -122,66 +114,60 @@ public class AgregarProductoFragment extends Fragment {
 
         return "";
     }
+
     private void guardar() {
 
-        Producto producto = new Producto();
+        try {
 
-        producto.setNombre(
-                binding.etNombre
-                        .getText()
-                        .toString()
-        );
+            Producto producto = new Producto();
 
-        producto.setSku(
-                binding.etSku
-                        .getText()
-                        .toString()
-        );
+            producto.setNombre(
+                    binding.etNombre.getText().toString());
 
-        producto.setCategoria(
-                obtenerCategoria()
-        );
+            producto.setSku(
+                    binding.etSku.getText().toString());
 
-        producto.setPrecio(
-                Double.parseDouble(
-                        binding.etPrecio
-                                .getText()
-                                .toString()
-                )
-        );
+            producto.setCategoria(
+                    obtenerCategoria());
 
-        producto.setStock(
-                Integer.parseInt(
-                        binding.etStock
-                                .getText()
-                                .toString()
-                )
-        );
+            producto.setPrecio(
+                    Double.parseDouble(
+                            binding.etPrecio.getText().toString()
+                    ));
 
-        producto.setStockMinimo(
-                Integer.parseInt(
-                        binding.etMinimo
-                                .getText()
-                                .toString()
-                )
-        );
+            producto.setStock(
+                    Integer.parseInt(
+                            binding.etStock.getText().toString()
+                    ));
 
-        producto.setImagen(imagenSeleccionada);
+            producto.setStockMinimo(
+                    Integer.parseInt(
+                            binding.etMinimo.getText().toString()
+                    ));
 
-        ProductoDAO dao =
-                new ProductoDAO(
-                        requireContext()
-                );
+            producto.setImagen(imagenSeleccionada);
 
-        dao.insertar(producto);
+            ProductoRepository repository =
+                    new ProductoRepository(requireContext());
 
-        Toast.makeText(
-                requireContext(),
-                "Producto guardado",
-                Toast.LENGTH_SHORT
-        ).show();
+            repository.insertar(producto);
 
-        limpiar();
+            Toast.makeText(
+                    requireContext(),
+                    "Producto guardado",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            limpiar();
+
+        } catch (Exception e){
+
+            Toast.makeText(
+                    requireContext(),
+                    "Complete todos los campos",
+                    Toast.LENGTH_SHORT
+            ).show();
+        }
     }
 
     private void limpiar() {
