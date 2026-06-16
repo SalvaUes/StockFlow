@@ -2,4 +2,33 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Paleta elegante / minimalista -->
+    <color name="elegant_primary">#1F2937</color>
+    <color name="elegant_on_primary">#FFFFFF</color>
+    <color name="elegant_primary_container">#E5E7EB</color>
+    <color name="elegant_on_primary_container">#111827</color>
+
+    <color name="elegant_secondary">#A67C52</color>
+    <color name="elegant_on_secondary">#FFFFFF</color>
+
+    <color name="elegant_background">#F7F5F2</color>
+    <color name="elegant_on_background">#111827</color>
+    <color name="elegant_surface">#FFFFFF</color>
+    <color name="elegant_on_surface">#111827</color>
+    <color name="elegant_outline">#D6D3D1</color>
+
+    <color name="elegant_dark_primary">#E5E7EB</color>
+    <color name="elegant_dark_on_primary">#111827</color>
+    <color name="elegant_dark_primary_container">#374151</color>
+    <color name="elegant_dark_on_primary_container">#F9FAFB</color>
+
+    <color name="elegant_dark_secondary">#D9B98B</color>
+    <color name="elegant_dark_on_secondary">#111827</color>
+
+    <color name="elegant_dark_background">#0B1220</color>
+    <color name="elegant_dark_on_background">#F3F4F6</color>
+    <color name="elegant_dark_surface">#111827</color>
+    <color name="elegant_dark_on_surface">#F3F4F6</color>
+    <color name="elegant_dark_outline">#374151</color>
 </resources>

@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">StockFlow</string>
+    <!-- Textos para la app -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="usuario_text">Usuario: %1$s</string>
+    <string name="email_text">Email: %1$s</string>
+    <string name="no_disponible">No disponible</string>
+    <string name="bienvenida_usuario">Bienvenido, %1$s!</string>
+    <string name="bienvenida_default">Bienvenido a la aplicación</string>
+    <string name="cerrar_sesion_title">Cerrar sesión</string>
+    <string name="cerrar_sesion_message">¿Estás seguro que deseas cerrar sesión?</string>
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+    <string name="sesion_cerrada">Sesión cerrada</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_ajustes">Ajustes</string>
+    <string name="menu_cerrar_sesion">Cerrar sesión</string>
+    <string name="toolbar_login">Login</string>
+    <string name="toolbar_registro">Registro</string>
+    <string name="toolbar_inicio">Inicio</string>
+    <string name="login_bienvenido">Bienvenido</string>
+    <string name="login_subtitle">Ingresa con tus credenciales para continuar</string>
+    <string name="login_usuario_hint">Usuario</string>
+    <string name="login_password_hint">Contraseña</string>
+    <string name="login_button">Login</string>
+    <string name="login_register_prompt">¿No tienes cuenta? Regístrate</string>
+    <string name="register_title">Crear cuenta</string>
+    <string name="register_subtitle">Completa tus datos para registrar un nuevo usuario</string>
+    <string name="register_usuario_hint">Usuario</string>
+    <string name="register_email_hint">Email</string>
+    <string name="register_password_hint">Contraseña</string>
+    <string name="register_confirm_password_hint">Confirmar contraseña</string>
+    <string name="register_save_button">Guardar</string>
+    <string name="register_back_button">Regresar</string>
 </resources>

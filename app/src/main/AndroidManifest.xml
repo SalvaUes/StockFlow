@@ -11,15 +11,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StockFlow">
+
+        <!-- Pantalla de detalles -->
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.DetalleProductoActivity"
+            android:exported="false" />
+
+        <!-- Pantalla para editar productos -->
+        <activity
+            android:name=".activities.EditarProductoActivity"
+            android:exported="false" />
+
+        <!-- Pantalla principal -->
+        <activity
+            android:name=".activities.HomeActivity"
+            android:exported="false" />
+
+        <!-- Registro -->
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:exported="false" />
+
+        <!-- Inicio de la aplicación -->
+        <activity
+            android:name=".activities.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>

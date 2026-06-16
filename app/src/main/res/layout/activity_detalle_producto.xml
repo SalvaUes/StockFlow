@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorSurface">
+
+    <!-- Toolbar -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <ImageButton
+            android:id="@+id/btnVolver"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="?attr/colorOnPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Detalle Producto"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Imagen -->
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgProducto"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircularImageView"/>
+
+            <!-- Nombre -->
+
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"/>
+
+            <!-- SKU -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="SKU"
+                android:textColor="?attr/colorOutline"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tvSku"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:paddingBottom="16dp"/>
+
+            <!-- Categoría -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CATEGORÍA"
+                android:textColor="?attr/colorOutline"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tvCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:paddingBottom="16dp"/>
+
+            <!-- Precio -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRECIO"
+                android:textColor="?attr/colorOutline"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:paddingBottom="16dp"/>
+
+            <!-- Stock -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="STOCK"
+                android:textColor="?attr/colorOutline"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tvStock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:paddingBottom="16dp"/>
+
+            <!-- Estado -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ESTADO"
+                android:textColor="?attr/colorOutline"
+                android:textStyle="bold"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"/>
+
+            <!-- Botones -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp">
+
+                <Button
+                    android:id="@+id/btnEditar"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:text="Editar"/>
+
+                <Button
+                    android:id="@+id/btnEliminar"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Eliminar"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
