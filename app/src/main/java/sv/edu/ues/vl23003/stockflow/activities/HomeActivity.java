@@ -1,7 +1,11 @@
-package sv.edu.ues.vl23003.stockflow.activities; // paquete de actividades principal de la pantalla interna
+package sv.edu.ues.vl23003.stockflow.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -11,50 +15,87 @@ import sv.edu.ues.vl23003.stockflow.fragments.AgregarProductoFragment;
 import sv.edu.ues.vl23003.stockflow.fragments.InicioFragment;
 import sv.edu.ues.vl23003.stockflow.fragments.ListaProductosFragment;
 import sv.edu.ues.vl23003.stockflow.fragments.PerfilFragment;
+import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
 
-public class HomeActivity extends AppCompatActivity { // clase que maneja la pantalla principal despues del acceso
+public class HomeActivity extends AppCompatActivity {
 
-    private ActivityHomeBinding binding; // enlace con los elementos visuales de esta actividad
+    private ActivityHomeBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { // metodo que se ejecuta al crear la actividad
-        super.onCreate(savedInstanceState); // llamada obligatoria a la clase padre
-        binding = ActivityHomeBinding.inflate(getLayoutInflater()); // se infla el layout usando view binding
-        setContentView(binding.getRoot()); // se asigna la vista raiz como contenido
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        if (savedInstanceState == null) { // si la actividad se crea por primera vez se muestra el inicio
-            loadFragment(new InicioFragment()); // se carga el fragmento de inicio como vista inicial
+        setSupportActionBar(binding.toolbar);
+
+        if (savedInstanceState == null) {
+            loadFragment(new InicioFragment());
         }
 
-        binding.bottomNavigation.setOnItemSelectedListener(item -> { // se configura la navegacion inferior para cambiar de fragmento
-            Fragment selectedFragment = null; // variable que guardara el fragmento elegido
-            int id = item.getItemId(); // se obtiene el identificador del elemento pulsado
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
+            int id = item.getItemId();
 
             if (id == R.id.nav_home) {
                 selectedFragment = new InicioFragment();
-            }
-            else if (id == R.id.nav_products) {
+                binding.toolbar.setTitle("StockFlow");
+            } else if (id == R.id.nav_products) {
                 selectedFragment = new ListaProductosFragment();
-            }
-            else if (id == R.id.nav_add) {
+                binding.toolbar.setTitle("Productos");
+            } else if (id == R.id.nav_add) {
                 selectedFragment = new AgregarProductoFragment();
-            }
-            else if (id == R.id.nav_profile) {
+                binding.toolbar.setTitle("Agregar Producto");
+            } else if (id == R.id.nav_profile) {
                 selectedFragment = new PerfilFragment();
+                binding.toolbar.setTitle("Perfil");
             }
 
-            if (selectedFragment != null) { // si existe un fragmento valido se reemplaza el actual
-                loadFragment(selectedFragment); // se carga el fragmento seleccionado en el contenedor
-                return true; // se indica que el evento fue atendido
+            if (selectedFragment != null) {
+                loadFragment(selectedFragment);
+                return true;
             }
-            return false; // se indica que el evento no pudo resolverse
+            return false;
+        });
+
+        binding.toolbar.setOnMenuItemClickListener(item -> {
+            return onOptionsItemSelected(item);
         });
     }
 
-    private void loadFragment(Fragment fragment) { // metodo auxiliar para cambiar el fragmento visible
-        getSupportFragmentManager() // se inicia una transaccion del administrador de fragmentos
-                .beginTransaction() // se prepara el cambio de fragmento
-                .replace(R.id.fragment_container, fragment) // se reemplaza el contenido del contenedor por el fragmento recibido
-                .commit(); // se confirma el cambio en pantalla
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_profile) {
+            binding.bottomNavigation.setSelectedItemId(R.id.nav_profile);
+            return true;
+        } else if (id == R.id.action_settings) {
+            Toast.makeText(this, "Ajustes", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.action_logout) {
+            PrefManager prefManager = new PrefManager(this);
+            prefManager.logout();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        android.R.anim.fade_in,
+                        android.R.anim.fade_out,
+                        android.R.anim.fade_in,
+                        android.R.anim.fade_out
+                )
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }

@@ -31,4 +31,9 @@
     <color name="elegant_dark_surface">#111827</color>
     <color name="elegant_dark_on_surface">#F3F4F6</color>
     <color name="elegant_dark_outline">#374151</color>
+
+    <!-- Estados de producto -->
+    <color name="status_disponible">#2E7D32</color>
+    <color name="status_bajo_stock">#F57C00</color>
+    <color name="status_agotado">#C62828</color>
 </resources>

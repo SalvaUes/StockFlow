@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -74,44 +75,23 @@ public class ProductoAdapter
                 )
         );
 
+        int colorEstado;
         switch (producto.getEstado()) {
-
             case "Disponible":
-
-                holder.binding.tvEstado.setTextColor(
-                        0xFF2E7D32
-                );
-
-                holder.binding.tvStock.setTextColor(
-                        0xFF2E7D32
-                );
-
+                colorEstado = ContextCompat.getColor(context, R.color.status_disponible);
                 break;
-
             case "Bajo Stock":
-
-                holder.binding.tvEstado.setTextColor(
-                        0xFFF57C00
-                );
-
-                holder.binding.tvStock.setTextColor(
-                        0xFFF57C00
-                );
-
+                colorEstado = ContextCompat.getColor(context, R.color.status_bajo_stock);
                 break;
-
             case "Agotado":
-
-                holder.binding.tvEstado.setTextColor(
-                        0xFFC62828
-                );
-
-                holder.binding.tvStock.setTextColor(
-                        0xFFC62828
-                );
-
+                colorEstado = ContextCompat.getColor(context, R.color.status_agotado);
+                break;
+            default:
+                colorEstado = ContextCompat.getColor(context, R.color.elegant_on_surface);
                 break;
         }
+        holder.binding.tvEstado.setTextColor(colorEstado);
+        holder.binding.tvStock.setTextColor(colorEstado);
         try {
 
             if(producto.getImagen() != null &&

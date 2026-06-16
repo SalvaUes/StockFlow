@@ -18,33 +18,37 @@ import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
 
 public class PerfilFragment extends Fragment { // clase que muestra el perfil del usuario
     
-    private PrefManager prefManager; // gestor para leer datos del usuario guardados
-    private TextView tvUsuario, tvEmail; // campos de texto para mostrar usuario y email
-    private Button btnLogout; // boton para cerrar sesion
+    private PrefManager prefManager;
+    private TextView tvPerfilNombre, tvPerfilEmail, tvUsuario, tvCorreo;
+    private Button btnLogout;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { // metodo que construye la vista del fragmento
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false); // se infla el layout del perfil
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        prefManager = new PrefManager(requireContext()); // se crea el gestor de preferencias
+        prefManager = new PrefManager(requireContext());
 
-        tvUsuario = view.findViewById(R.id.tvPerfilUsuario); // se obtiene el campo para mostrar usuario
-        tvEmail = view.findViewById(R.id.tvPerfilEmail); // se obtiene el campo para mostrar email
-        btnLogout = view.findViewById(R.id.btnLogout); // se obtiene el boton de logout
+        tvPerfilNombre = view.findViewById(R.id.tvPerfilNombre);
+        tvPerfilEmail = view.findViewById(R.id.tvPerfilEmail);
+        tvUsuario = view.findViewById(R.id.tvPerfilUsuario);
+        tvCorreo = view.findViewById(R.id.tvPerfilCorreo);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
-        cargarDatosUsuario(); // se carga la informacion del usuario en pantalla
+        cargarDatosUsuario();
 
-        btnLogout.setOnClickListener(v -> mostrarDialogoLogout()); // al presionar logout se muestra un dialogo de confirmacion
+        btnLogout.setOnClickListener(v -> mostrarDialogoLogout());
 
-        return view; // se devuelve la vista ya configurada
+        return view;
     }
 
-    private void cargarDatosUsuario() { // metodo para mostrar los datos del usuario
-        String usuario = prefManager.getUsuario(); // se obtiene el usuario guardado
-        String email = prefManager.getEmail(); // se obtiene el email guardado
+    private void cargarDatosUsuario() {
+        String usuario = prefManager.getUsuario();
+        String email = prefManager.getEmail();
 
-        tvUsuario.setText("Usuario: " + (usuario.isEmpty() ? "No disponible" : usuario)); // se muestra el usuario o un mensaje si no existe
-        tvEmail.setText("Email: " + (email.isEmpty() ? "No disponible" : email)); // se muestra el email o un mensaje si no existe
+        tvPerfilNombre.setText(usuario.isEmpty() ? "Usuario" : usuario);
+        tvPerfilEmail.setText(email.isEmpty() ? "email@ejemplo.com" : email);
+        tvUsuario.setText("Usuario: " + (usuario.isEmpty() ? "No disponible" : usuario));
+        tvCorreo.setText("Email: " + (email.isEmpty() ? "No disponible" : email));
     }
 
     private void mostrarDialogoLogout() { // metodo para mostrar dialogo de confirmacion de logout
