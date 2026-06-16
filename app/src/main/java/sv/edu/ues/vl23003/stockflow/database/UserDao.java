@@ -1,11 +1,9 @@
-package sv.edu.ues.vl23003.stockflow.data.dao;
+package sv.edu.ues.vl23003.stockflow.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
-
-import sv.edu.ues.vl23003.stockflow.data.entities.User;
 
 
 @Dao

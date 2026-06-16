@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/colorSurface">
+
+    <!-- Toolbar -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Editar Producto"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Imagen -->
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgProducto"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_inventory_24"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircularImageView"/>
+
+            <Button
+                android:id="@+id/btnImagen"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:text="Seleccionar Imagen"
+                android:backgroundTint="?attr/colorPrimary"
+                android:textColor="?attr/colorOnPrimary"/>
+
+            <!-- Nombre -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hint="Nombre del producto">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- SKU -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="SKU">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etSku"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Categoría -->
+
+            <!-- Categoría -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Categoría"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginTop="16dp"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipElectronica"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Electrónica"
+                    android:checkable="true"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipRopa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ropa"
+                    android:checkable="true"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipHogar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hogar"
+                    android:checkable="true"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAlimentos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alimentos"
+                    android:checkable="true"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDeportes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deportes"
+                    android:checkable="true"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Precio -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Precio">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPrecio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Stock -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Stock">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etStock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Stock mínimo -->
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Stock mínimo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etMinimo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Botón guardar -->
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="24dp"
+                android:text="Guardar Producto"
+                android:textColor="?attr/colorOnPrimary"
+                android:backgroundTint="?attr/colorPrimary"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

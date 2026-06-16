@@ -1,4 +1,4 @@
-package sv.edu.ues.vl23003.stockflow.data.entities;
+package sv.edu.ues.vl23003.stockflow.database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
