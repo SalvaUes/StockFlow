@@ -31,4 +31,16 @@ public interface ProductoDAO {
             "OR sku LIKE '%' || :texto || '%' " +
             "OR categoria LIKE '%' || :texto || '%'")
     List<Producto> buscar(String texto);
+
+    @Query("SELECT COUNT(id) FROM productos")
+    int getTotalProductos();
+
+    @Query("SELECT SUM(precio * stock) FROM productos")
+    double getValorTotalInventario();
+
+    @Query("SELECT COUNT(id) FROM productos WHERE stock <= stockMinimo")
+    int getCantidadProductosBajoStock();
+
+    @Query("SELECT * FROM productos WHERE stock <= stockMinimo ORDER BY stock ASC")
+    List<Producto> getProductosBajoStock();
 }

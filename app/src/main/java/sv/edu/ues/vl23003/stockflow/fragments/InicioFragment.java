@@ -1,47 +1,58 @@
-package sv.edu.ues.vl23003.stockflow.fragments; // paquete donde vive el fragmento de inicio
+package sv.edu.ues.vl23003.stockflow.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 import sv.edu.ues.vl23003.stockflow.R;
-import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
+import sv.edu.ues.vl23003.stockflow.Adapter.ProductoAdapter;
+import sv.edu.ues.vl23003.stockflow.database.Producto;
+import sv.edu.ues.vl23003.stockflow.database.ProductoRepository;
 
-public class InicioFragment extends Fragment { // clase que muestra la pantalla de inicio dentro de la navegacion
+public class InicioFragment extends Fragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { // metodo que construye la interfaz visible del fragmento
-        View view = inflater.inflate(R.layout.fragment_inicio, container, false); // se infla el layout del inicio para crear la vista principal
-
-        PrefManager prefManager = new PrefManager(requireContext()); // se crea el gestor de preferencias para leer datos guardados
-        TextView tvBienvenida = view.findViewById(R.id.tvBienvenida); // se obtiene el texto de bienvenida del layout
-        TextView tvCountProductos = view.findViewById(R.id.tvCountProductos); // se obtiene el texto que mostrara la cantidad de productos
-
-        String usuario = prefManager.getUsuario(); // se lee el usuario guardado para personalizar la bienvenida
-        if (!usuario.isEmpty()) { // se valida si existe un usuario registrado
-            tvBienvenida.setText(getString(R.string.bienvenida_usuario, usuario)); // se muestra bienvenida personalizada con el nombre del usuario
-        } else {
-            tvBienvenida.setText(getString(R.string.bienvenida_default)); // se muestra bienvenida por defecto cuando no hay usuario
-        }
-
-        int count = prefManager.getProductCount(); // se obtiene el numero actual de productos guardados
-        tvCountProductos.setText(String.valueOf(count)); // se muestra el contador inicial de productos en pantalla
-
-        return view; // se devuelve la vista ya configurada al sistema
-    }
+    private ProductoRepository repository;
 
     @Override
-    public void onResume() { // metodo que refresca la informacion cuando el fragmento vuelve a mostrarse
-        super.onResume(); // llamada obligatoria al metodo padre para conservar el ciclo de vida
-        PrefManager prefManager = new PrefManager(requireContext()); // se crea nuevamente el gestor para leer el valor mas reciente
-        View v = getView(); // se obtiene la vista actual del fragmento si existe
-        if (v != null) { // se valida que la vista siga disponible antes de usarla
-            TextView tvCount = v.findViewById(R.id.tvCountProductos); // se busca el texto donde se muestra el contador de productos
-            tvCount.setText(String.valueOf(prefManager.getProductCount())); // se actualiza el contador con el valor actual guardado
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_inicio, container, false);
+
+
+        repository = new ProductoRepository(requireContext());
+
+
+        TextView tvTotalProductos = view.findViewById(R.id.tvTotalProductos);
+        TextView tvValorInventario = view.findViewById(R.id.tvValorInventario);
+        TextView tvAlertasStock = view.findViewById(R.id.tvAlertasStock);
+        RecyclerView rvProductosBajoStock = view.findViewById(R.id.rvProductosBajoStock);
+
+
+        int totalProductos = repository.getTotalProductos();
+        double valorInventario = repository.getValorTotalInventario();
+        int cantidadBajoStock = repository.getCantidadProductosBajoStock();
+        List<Producto> listaBajoStock = repository.getProductosBajoStock();
+
+
+        tvTotalProductos.setText(String.valueOf(totalProductos));
+        tvValorInventario.setText(String.format("$%.2f", valorInventario));
+        tvAlertasStock.setText(String.valueOf(cantidadBajoStock));
+
+
+        if (!listaBajoStock.isEmpty()) {
+            ProductoAdapter adapter = new ProductoAdapter(requireContext(), (java.util.ArrayList<Producto>) listaBajoStock);
+            rvProductosBajoStock.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvProductosBajoStock.setAdapter(adapter);
         }
+
+        return view;
     }
 }

@@ -23,20 +23,19 @@ public class PerfilFragment extends Fragment { // clase que muestra el perfil de
     private Button btnLogout; // boton para cerrar sesion
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { // metodo que construye la vista del fragmento
-        View view = inflater.inflate(R.layout.fragment_perfil, container, false); // se infla el layout del perfil
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        prefManager = new PrefManager(requireContext()); // se crea el gestor de preferencias
+        prefManager = new PrefManager(requireContext());
 
-        tvUsuario = view.findViewById(R.id.tvPerfilUsuario); // se obtiene el campo para mostrar usuario
-        tvEmail = view.findViewById(R.id.tvPerfilEmail); // se obtiene el campo para mostrar email
-        btnLogout = view.findViewById(R.id.btnLogout); // se obtiene el boton de logout
+        tvUsuario = view.findViewById(R.id.tvPerfilUsuario);
+        tvEmail = view.findViewById(R.id.tvPerfilEmail);
+        btnLogout = view.findViewById(R.id.btnLogout);
 
-        cargarDatosUsuario(); // se carga la informacion del usuario en pantalla
+        cargarDatosUsuario();
 
-        btnLogout.setOnClickListener(v -> mostrarDialogoLogout()); // al presionar logout se muestra un dialogo de confirmacion
-
-        return view; // se devuelve la vista ya configurada
+        btnLogout.setOnClickListener(v -> mostrarDialogoLogout());
+        return view;
     }
 
     private void cargarDatosUsuario() { // metodo para mostrar los datos del usuario

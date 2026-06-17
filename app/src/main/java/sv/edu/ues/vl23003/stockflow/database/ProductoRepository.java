@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductoRepository {
 
@@ -22,6 +23,22 @@ public class ProductoRepository {
                 .build();
 
         dao = db.productoDao();
+    }
+
+    public int getTotalProductos() {
+        return dao.getTotalProductos();
+    }
+
+    public double getValorTotalInventario() {
+        return dao.getValorTotalInventario();
+    }
+
+    public int getCantidadProductosBajoStock() {
+        return dao.getCantidadProductosBajoStock();
+    }
+
+    public List<Producto> getProductosBajoStock() {
+        return dao.getProductosBajoStock();
     }
 
     public long insertar(Producto producto) {
