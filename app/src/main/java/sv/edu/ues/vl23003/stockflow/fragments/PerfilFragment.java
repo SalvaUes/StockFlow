@@ -16,11 +16,18 @@ import sv.edu.ues.vl23003.stockflow.R;
 import sv.edu.ues.vl23003.stockflow.activities.MainActivity;
 import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import android.content.SharedPreferences;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
+
 public class PerfilFragment extends Fragment { // clase que muestra el perfil del usuario
     
     private PrefManager prefManager; // gestor para leer datos del usuario guardados
     private TextView tvUsuario, tvEmail; // campos de texto para mostrar usuario y email
     private Button btnLogout; // boton para cerrar sesion
+
+    private SwitchMaterial switchModoOscuro;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) { // metodo que construye la vista del fragmento
@@ -35,6 +42,50 @@ public class PerfilFragment extends Fragment { // clase que muestra el perfil de
         cargarDatosUsuario(); // se carga la informacion del usuario en pantalla
 
         btnLogout.setOnClickListener(v -> mostrarDialogoLogout()); // al presionar logout se muestra un dialogo de confirmacion
+
+        switchModoOscuro =
+                view.findViewById(R.id.switchModoOscuro);
+
+        SharedPreferences prefs =
+                requireActivity().getSharedPreferences(
+                        "config",
+                        getContext().MODE_PRIVATE
+                );
+
+        boolean modoOscuro =
+                prefs.getBoolean(
+                        "modo_oscuro",
+                        false
+                );
+
+        switchModoOscuro.setChecked(
+                modoOscuro
+        );
+
+        switchModoOscuro.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+
+                    prefs.edit()
+                            .putBoolean(
+                                    "modo_oscuro",
+                                    isChecked
+                            )
+                            .apply();
+
+                    if(isChecked){
+
+                        AppCompatDelegate.setDefaultNightMode(
+                                AppCompatDelegate.MODE_NIGHT_YES
+                        );
+
+                    }else{
+
+                        AppCompatDelegate.setDefaultNightMode(
+                                AppCompatDelegate.MODE_NIGHT_NO
+                        );
+                    }
+                }
+        );
 
         return view; // se devuelve la vista ya configurada
     }

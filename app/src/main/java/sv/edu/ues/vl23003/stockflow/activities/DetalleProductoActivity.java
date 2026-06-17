@@ -28,6 +28,8 @@ public class DetalleProductoActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
+        binding.btnVolver.setOnClickListener(v -> finish());
+
         int id = getIntent().getIntExtra("id", 0);
 
         ProductoRepository repository =
