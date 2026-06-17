@@ -70,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity { // clase que maneja el
     private void limpiar() { // metodo que limpia todos los campos del formulario
         edtUsuario.setText(""); // se borra el texto del campo usuario
         edtEmail.setText(""); // se borra el texto del campo correo
-        edtPassword.setText(""); // se borra el texto del campo contrasena
+        edtPassword.setText(""); // se borra el texto del campo contraseña
         edtConfirmar.setText(""); // se borra el texto del campo confirmacion
     }
 

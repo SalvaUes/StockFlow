@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,6 +22,8 @@ public class EditarProductoActivity extends AppCompatActivity {
 
     private ProductoRepository repository;
     private Producto producto;
+
+    private ImageButton btnAtrasToolbar;
 
     private String imagenSeleccionada = "";
 
@@ -41,6 +44,17 @@ public class EditarProductoActivity extends AppCompatActivity {
 
         configurarGaleria();
 
+        // CONTROL CLIC ASOCIADO AL BOTÓN ATRÁS DE LA TOOLBAR
+        // Se vincula el botón de la barra superior de forma tradicional
+        btnAtrasToolbar = findViewById(R.id.btnAtrasToolbar);
+
+// Al presionar la flecha, se acciona el botón regresar del propio Android
+        if (btnAtrasToolbar != null) {
+            btnAtrasToolbar.setOnClickListener(v -> {
+                getOnBackPressedDispatcher().onBackPressed();
+            });
+        }
+
         int id = getIntent().getIntExtra("id", 0);
 
         producto = repository.obtenerPorId(id);
@@ -52,6 +66,13 @@ public class EditarProductoActivity extends AppCompatActivity {
         binding.btnGuardar.setOnClickListener(
                 v -> actualizarProducto()
         );
+    }
+
+    // CONTROL DEL GESTO O BOTÓN FÍSICO DE RETORNO EN EL TELÉFONO
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private String obtenerCategoria() {
@@ -159,11 +180,15 @@ public class EditarProductoActivity extends AppCompatActivity {
 
                             Uri uri = data.getData();
 
-                            getContentResolver()
-                                    .takePersistableUriPermission(
-                                            uri,
-                                            Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                    );
+                            try {
+                                getContentResolver()
+                                        .takePersistableUriPermission(
+                                                uri,
+                                                Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                        );
+                            } catch (SecurityException e) {
+                                e.printStackTrace();
+                            }
 
                             imagenSeleccionada =
                                     uri.toString();
@@ -256,7 +281,7 @@ public class EditarProductoActivity extends AppCompatActivity {
 
             Toast.makeText(
                     this,
-                    "Complete todos los campos",
+                    "Complete todos los campos correctamente",
                     Toast.LENGTH_SHORT
             ).show();
         }

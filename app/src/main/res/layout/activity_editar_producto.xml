@@ -19,7 +19,7 @@
         android:paddingEnd="16dp">
 
         <ImageButton
-            android:id="@+id/btnVolver"
+            android:id="@+id/btnAtrasToolbar"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:background="@android:color/transparent"
