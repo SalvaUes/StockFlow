@@ -37,6 +37,8 @@ public class EditarProductoActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
+        binding.btnVolver.setOnClickListener(v -> finish());
+
         repository = new ProductoRepository(this);
 
         configurarGaleria();

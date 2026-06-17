@@ -1,10 +1,12 @@
 package sv.edu.ues.vl23003.stockflow.activities; // paquete de actividades principal
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import sv.edu.ues.vl23003.stockflow.databinding.ActivityMainBinding;
 import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
@@ -50,5 +52,29 @@ public class MainActivity extends AppCompatActivity { // clase que representa la
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class); // se crea la intencion para ir al registro
             startActivity(intent); // se abre la pantalla de registro
         });
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        "config",
+                        MODE_PRIVATE
+                );
+
+        boolean modoOscuro =
+                prefs.getBoolean(
+                        "modo_oscuro",
+                        false
+                );
+
+        if(modoOscuro){
+
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES
+            );
+
+        }else{
+
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO
+            );
+        }
     }
 }
