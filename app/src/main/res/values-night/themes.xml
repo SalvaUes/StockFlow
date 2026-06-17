@@ -1,7 +1,19 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
     <style name="Base.Theme.StockFlow" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/elegant_dark_primary</item>
+        <item name="colorOnPrimary">@color/elegant_dark_on_primary</item>
+        <item name="colorPrimaryContainer">@color/elegant_dark_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/elegant_dark_on_primary_container</item>
+        <item name="colorSecondary">@color/elegant_dark_secondary</item>
+        <item name="colorOnSecondary">@color/elegant_dark_on_secondary</item>
+        <item name="android:colorBackground">@color/elegant_dark_background</item>
+        <item name="colorOnBackground">@color/elegant_dark_on_background</item>
+        <item name="colorSurface">@color/elegant_dark_surface</item>
+        <item name="colorOnSurface">@color/elegant_dark_on_surface</item>
+        <item name="colorOutline">@color/elegant_dark_outline</item>
+        <item name="android:windowBackground">@color/elegant_dark_background</item>
+        <item name="android:statusBarColor">@color/elegant_dark_background</item>
+        <item name="android:navigationBarColor">@color/elegant_dark_background</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

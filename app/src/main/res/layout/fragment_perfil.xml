@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout del fragmento de perfil que muestra informacion del usuario y boton de logout -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    android:fillViewport="true">
+
+   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+       
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp">
+
+           
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivPerfilAvatar"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_person_24"
+                android:scaleType="centerCrop"
+                android:background="?attr/colorPrimaryContainer"
+                app:shapeAppearanceOverlay="@style/CircularImageView" />
+
+           
+            <TextView
+                android:id="@+id/tvPerfilNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usuario"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginTop="16dp" />
+
+           
+            <TextView
+                android:id="@+id/tvPerfilEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="email@ejemplo.com"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOutline"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+       
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informacion de Cuenta"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            android:layout_marginBottom="16dp" />
+
+       
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            app:strokeWidth="0dp">
+
+           
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+               
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="12dp">
+
+                   
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_person_24"
+                        android:contentDescription="Usuario"
+                        android:layout_gravity="center_vertical" />
+
+                   
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
+
+                       
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nombre de usuario"
+                            android:textSize="12sp"
+                            android:textColor="?attr/colorOutline" />
+
+                       
+                        <TextView
+                            android:id="@+id/tvPerfilUsuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Salva"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+               
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/colorOutline"
+                    android:alpha="0.3" />
+
+               
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="12dp">
+
+                   
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_dialog_email"
+                        android:contentDescription="Email"
+                        android:layout_gravity="center_vertical" />
+
+                   
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp">
+
+                       
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Correo electronico"
+                            android:textSize="12sp"
+                            android:textColor="?attr/colorOutline" />
+
+                       
+                        <TextView
+                            android:id="@+id/tvPerfilCorreo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="salva@mail.com"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+       
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnToggleTheme"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Modo oscuro"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            app:cornerRadius="12dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:icon="@drawable/ic_settings_24"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Cerrar Sesion"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="16dp"
+            app:cornerRadius="12dp"
+            app:icon="@drawable/ic_logout_24"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp" />
+
+    </LinearLayout>
+</ScrollView>

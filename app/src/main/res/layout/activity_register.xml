@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Layout principal de la pantalla de login con campos de usuario y contrasena -->
+<!-- Layout de la pantalla de registro con campos para nuevo usuario email y contrasena -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    tools:context="sv.edu.ues.vl23003.stockflow.activities.MainActivity">
+    tools:context="sv.edu.ues.vl23003.stockflow.activities.RegisterActivity">
 
-    <!-- Barra de herramientas con titulo de login -->
+   
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarRegister"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"
@@ -20,22 +19,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="@string/toolbar_login"
+        app:title="@string/toolbar_registro"
         app:titleCentered="true"
         app:titleTextColor="?attr/colorOnSurface" />
 
-    <!-- Vista desplazable para acomodar contenido en pantallas pequenas -->
+   
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/main_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbarRegister">
 
-        <!-- Layout vertical para centrar el contenido -->
+       
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -43,7 +41,7 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- Tarjeta de material para el formulario de login -->
+           
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,91 +51,105 @@
                 app:strokeColor="?attr/colorOutline"
                 app:strokeWidth="1dp">
 
-                <!-- Layout vertical para el contenido de la tarjeta -->
+               
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <!-- Titulo de bienvenida -->
+                   
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/login_bienvenido"
+                        android:text="@string/register_title"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="26sp"
                         android:textStyle="bold" />
 
-                    <!-- Subtitulo descriptivo -->
+                   
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
-                        android:text="@string/login_subtitle"
+                        android:text="@string/register_subtitle"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="14sp" />
 
-                    <!-- Campo de entrada para usuario o email -->
+                   
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilUser"
+                        android:id="@+id/tilUsuario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:hint="@string/login_usuario_hint">
+                        android:hint="@string/register_usuario_hint">
 
-                        <!-- Campo de texto para usuario -->
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etUser"
+                            android:id="@+id/edtUsuario"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:hint="@string/register_email_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Campo de entrada para contrasena -->
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPass"
+                        android:id="@+id/tilPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:hint="@string/login_password_hint"
+                        android:hint="@string/register_password_hint"
                         app:endIconMode="password_toggle">
 
-                        <!-- Campo de texto para contrasena -->
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPass"
+                            android:id="@+id/edtPassword"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Boton para iniciar sesion -->
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilConfirmar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:hint="@string/register_confirm_password_hint"
+                        app:endIconMode="password_toggle">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtConfirmar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                   
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnLogin"
+                        android:id="@+id/btnGuardar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="@string/login_button" />
+                        android:text="@string/register_save_button" />
 
-                    <!-- Enlace para ir a registro -->
-                    <TextView
-                        android:id="@+id/tvRegister"
-                        android:layout_width="wrap_content"
+                   
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRegresar"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="18dp"
-                        android:text="@string/login_register_prompt"
-                        android:textColor="?attr/colorSecondary"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvToggleTheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
                         android:layout_marginTop="12dp"
-                        android:text="Modo oscuro"
-                        android:textColor="?attr/colorOutline" />
+                        android:text="@string/register_back_button" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
