@@ -5,6 +5,7 @@ import android.util.Patterns;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import sv.edu.ues.vl23003.stockflow.databinding.ActivityRegisterBinding;
 import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
@@ -17,10 +18,16 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         prefManager = new PrefManager(this);
+        if (prefManager.isDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         binding.btnGuardar.setOnClickListener(v -> guardar());
         binding.btnRegresar.setOnClickListener(v -> finish());

@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import sv.edu.ues.vl23003.stockflow.databinding.ActivityMainBinding;
 import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
@@ -19,10 +20,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
         prefManager = new PrefManager(this);
+        aplicarTema();
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (prefManager.isLoggedIn() && prefManager.hasRegisteredUser()) {
             navigateToHome();
@@ -31,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
 
         configurarCampos();
         configurarBotones();
+        actualizarTextoTema();
+    }
+
+    private void aplicarTema() {
+        if (prefManager.isDarkMode()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+    private void actualizarTextoTema() {
+        binding.tvToggleTheme.setText(prefManager.isDarkMode() ? "Modo claro" : "Modo oscuro");
     }
 
     private void configurarCampos() {
@@ -81,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
         binding.tvRegister.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
+        });
+
+        binding.tvToggleTheme.setOnClickListener(v -> {
+            boolean dark = !prefManager.isDarkMode();
+            prefManager.setDarkMode(dark);
+            recreate();
         });
     }
 

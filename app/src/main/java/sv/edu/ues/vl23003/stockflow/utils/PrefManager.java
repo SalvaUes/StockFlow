@@ -13,6 +13,7 @@ public class PrefManager {
     private static final String KEY_PASS = "pass";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_LOGGED_IN = "logged_in";
+    private static final String KEY_DARK_MODE = "dark_mode";
 
     private final SharedPreferences pref;
 
@@ -81,6 +82,16 @@ public class PrefManager {
         String savedUser = pref.getString(KEY_USER, "");
         String savedPass = pref.getString(KEY_PASS, "");
         return !user.isEmpty() && user.equals(savedUser) && hashPassword(pass).equals(savedPass);
+    }
+
+    public boolean isDarkMode() {
+        return pref.getBoolean(KEY_DARK_MODE, false);
+    }
+
+    public void setDarkMode(boolean darkMode) {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(KEY_DARK_MODE, darkMode);
+        editor.apply();
     }
 
     public void clearAll() {
