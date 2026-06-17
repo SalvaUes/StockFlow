@@ -179,12 +179,25 @@
 
        
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnToggleTheme"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Modo oscuro"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            app:cornerRadius="12dp"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            app:icon="@drawable/ic_settings_24"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Cerrar Sesion"
             android:textSize="16sp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="16dp"
             app:cornerRadius="12dp"
             app:icon="@drawable/ic_logout_24"
