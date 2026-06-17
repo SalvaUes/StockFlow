@@ -1,6 +1,8 @@
 package sv.edu.ues.vl23003.stockflow.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,10 +21,15 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+        if (prefs.getBoolean("dark_mode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         super.onCreate(savedInstanceState);
 
         prefManager = new PrefManager(this);
-        aplicarTema();
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -35,14 +42,6 @@ public class MainActivity extends AppCompatActivity {
         configurarCampos();
         configurarBotones();
         actualizarTextoTema();
-    }
-
-    private void aplicarTema() {
-        if (prefManager.isDarkMode()) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     private void actualizarTextoTema() {

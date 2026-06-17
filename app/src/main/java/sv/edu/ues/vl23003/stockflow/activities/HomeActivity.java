@@ -1,8 +1,11 @@
-package sv.edu.ues.vl23003.stockflow.activities; // paquete de actividades principal de la pantalla interna
+package sv.edu.ues.vl23003.stockflow.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import sv.edu.ues.vl23003.stockflow.R;
@@ -12,15 +15,21 @@ import sv.edu.ues.vl23003.stockflow.fragments.InicioFragment;
 import sv.edu.ues.vl23003.stockflow.fragments.ListaProductosFragment;
 import sv.edu.ues.vl23003.stockflow.fragments.PerfilFragment;
 
-public class HomeActivity extends AppCompatActivity { // clase que maneja la pantalla principal despues del acceso
+public class HomeActivity extends AppCompatActivity {
 
-    private ActivityHomeBinding binding; // enlace con los elementos visuales de esta actividad
+    private ActivityHomeBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) { // metodo que se ejecuta al crear la actividad
-        super.onCreate(savedInstanceState); // llamada obligatoria a la clase padre
-        binding = ActivityHomeBinding.inflate(getLayoutInflater()); // se infla el layout usando view binding
-        setContentView(binding.getRoot()); // se asigna la vista raiz como contenido
+    protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences prefs = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+        if (prefs.getBoolean("dark_mode", false)) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        super.onCreate(savedInstanceState);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         if (savedInstanceState == null) { // si la actividad se crea por primera vez se muestra el inicio
             loadFragment(new InicioFragment()); // se carga el fragmento de inicio como vista inicial

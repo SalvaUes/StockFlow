@@ -1,5 +1,7 @@
 package sv.edu.ues.vl23003.stockflow.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Toast;
@@ -17,14 +19,15 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        prefManager = new PrefManager(this);
-        if (prefManager.isDarkMode()) {
+        SharedPreferences prefs = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+        if (prefs.getBoolean("dark_mode", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
+        super.onCreate(savedInstanceState);
+
+        prefManager = new PrefManager(this);
 
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
