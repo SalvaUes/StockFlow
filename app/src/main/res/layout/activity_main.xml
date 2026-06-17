@@ -80,6 +80,7 @@
 
                     <!-- Campo de entrada para usuario o email -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilUser"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
@@ -95,10 +96,12 @@
 
                     <!-- Campo de entrada para contrasena -->
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:hint="@string/login_password_hint">
+                        android:hint="@string/login_password_hint"
+                        app:endIconMode="password_toggle">
 
                         <!-- Campo de texto para contrasena -->
                         <com.google.android.material.textfield.TextInputEditText

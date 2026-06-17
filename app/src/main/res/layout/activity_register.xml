@@ -78,26 +78,25 @@
 
                    
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilUsuario"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:hint="@string/register_usuario_hint">
 
-                       
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtUsuario"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                   
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
                         android:hint="@string/register_email_hint">
 
-                       
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtEmail"
                             android:layout_width="match_parent"
@@ -105,14 +104,14 @@
                             android:inputType="textEmailAddress" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                   
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:hint="@string/register_password_hint">
+                        android:hint="@string/register_password_hint"
+                        app:endIconMode="password_toggle">
 
-                       
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtPassword"
                             android:layout_width="match_parent"
@@ -120,14 +119,14 @@
                             android:inputType="textPassword" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                   
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilConfirmar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:hint="@string/register_confirm_password_hint">
+                        android:hint="@string/register_confirm_password_hint"
+                        app:endIconMode="password_toggle">
 
-                       
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edtConfirmar"
                             android:layout_width="match_parent"
