@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import sv.edu.ues.vl23003.stockflow.R;
 import sv.edu.ues.vl23003.stockflow.activities.DetalleProductoActivity;
@@ -20,10 +20,10 @@ public class ProductoAdapter
         extends RecyclerView.Adapter<ProductoAdapter.ViewHolder> {
 
     private final Context context;
-    private final ArrayList<Producto> lista;
+    private final List<Producto> lista;
 
     public ProductoAdapter(Context context,
-                           ArrayList<Producto> lista) {
+                           List<Producto> lista) {
 
         this.context = context;
         this.lista = lista;

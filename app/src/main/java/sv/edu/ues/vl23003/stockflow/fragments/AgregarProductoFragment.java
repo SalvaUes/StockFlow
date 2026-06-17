@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import sv.edu.ues.vl23003.stockflow.R;
+import sv.edu.ues.vl23003.stockflow.database.AppDatabase;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
 import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
 import sv.edu.ues.vl23003.stockflow.databinding.FragmentAgregarProductoBinding;
@@ -169,9 +170,7 @@ public class AgregarProductoFragment extends Fragment {
         producto.setImagen(imagenSeleccionada);
 
         ProductoDAO dao =
-                new ProductoDAO(
-                        requireContext()
-                );
+                AppDatabase.getInstance(requireContext()).productoDAO();
 
         dao.insertar(producto);
 

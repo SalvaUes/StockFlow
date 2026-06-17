@@ -9,8 +9,12 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import sv.edu.ues.vl23003.stockflow.R;
+import sv.edu.ues.vl23003.stockflow.database.AppDatabase;
+import sv.edu.ues.vl23003.stockflow.database.Producto;
 import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
 import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
+
+import java.util.List;
 
 public class InicioFragment extends Fragment {
 
@@ -20,7 +24,7 @@ public class InicioFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        productoDAO = new ProductoDAO(requireContext());
+        productoDAO = AppDatabase.getInstance(requireContext()).productoDAO();
         PrefManager prefManager = new PrefManager(requireContext());
         TextView tvBienvenida = view.findViewById(R.id.tvBienvenida);
         TextView tvCountProductos = view.findViewById(R.id.tvCountProductos);
@@ -48,7 +52,7 @@ public class InicioFragment extends Fragment {
     }
 
     private void actualizarContador(TextView tvCount) {
-        int count = productoDAO.obtenerTodos().size();
-        tvCount.setText(String.valueOf(count));
+        List<Producto> productos = productoDAO.obtenerTodos();
+        tvCount.setText(String.valueOf(productos.size()));
     }
 }

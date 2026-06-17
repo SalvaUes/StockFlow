@@ -13,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import sv.edu.ues.vl23003.stockflow.Adapter.ProductoAdapter;
+import sv.edu.ues.vl23003.stockflow.database.AppDatabase;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
 import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
 import sv.edu.ues.vl23003.stockflow.databinding.FragmentListaProductosBinding;
@@ -102,9 +104,9 @@ public class ListaProductosFragment extends Fragment {
     private void cargarProductos() {
 
         ProductoDAO dao =
-                new ProductoDAO(requireContext());
+                AppDatabase.getInstance(requireContext()).productoDAO();
 
-        ArrayList<Producto> lista =
+        List<Producto> lista =
                 dao.obtenerTodos();
 
         if(lista.isEmpty()){
@@ -157,9 +159,9 @@ public class ListaProductosFragment extends Fragment {
     private void buscarProductos(String texto){
 
         ProductoDAO dao =
-                new ProductoDAO(requireContext());
+                AppDatabase.getInstance(requireContext()).productoDAO();
 
-        ArrayList<Producto> lista;
+        List<Producto> lista;
 
         if(texto.isEmpty()){
 
@@ -215,12 +217,12 @@ public class ListaProductosFragment extends Fragment {
     private void filtrarCategoria(String categoria){
 
         ProductoDAO dao =
-                new ProductoDAO(requireContext());
+                AppDatabase.getInstance(requireContext()).productoDAO();
 
-        ArrayList<Producto> lista =
+        List<Producto> lista =
                 dao.obtenerTodos();
 
-        ArrayList<Producto> filtrada =
+        List<Producto> filtrada =
                 new ArrayList<>();
 
         if(categoria.equals("Todos")){
@@ -256,7 +258,7 @@ public class ListaProductosFragment extends Fragment {
         );
     }
 
-    private void actualizarVista(ArrayList<Producto> lista){
+    private void actualizarVista(List<Producto> lista){
 
         if(lista.isEmpty()){
 
@@ -291,6 +293,3 @@ public class ListaProductosFragment extends Fragment {
         );
     }
 }
-
-
-

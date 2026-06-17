@@ -1,43 +1,33 @@
 package sv.edu.ues.vl23003.stockflow.database;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
-public class AppDatabase extends SQLiteOpenHelper {
+import androidx.room.Database;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
 
-    private static final String DATABASE_NAME = "inventario.db";
-    private static final int DATABASE_VERSION = 1;
+@Database(entities = {Producto.class}, version = 1, exportSchema = false)
+public abstract class AppDatabase extends RoomDatabase {
 
-    public static final String TABLE_PRODUCTOS = "productos";
+    private static volatile AppDatabase INSTANCE;
 
-    public AppDatabase(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
+    public abstract ProductoDAO productoDAO();
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-        String sql = "CREATE TABLE productos (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "nombre TEXT," +
-                "sku TEXT," +
-                "categoria TEXT," +
-                "precio REAL," +
-                "stock INTEGER," +
-                "stockMinimo INTEGER," +
-                "imagen TEXT)";
-
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db,
-                          int oldVersion,
-                          int newVersion) {
-
-        db.execSQL("DROP TABLE IF EXISTS productos");
-
-        onCreate(db);
+    public static AppDatabase getInstance(Context context) {
+        if (INSTANCE == null) {
+            synchronized (AppDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(
+                            context.getApplicationContext(),
+                            AppDatabase.class,
+                            "inventario.db"
+                    )
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build();
+                }
+            }
+        }
+        return INSTANCE;
     }
 }

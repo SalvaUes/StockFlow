@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import sv.edu.ues.vl23003.stockflow.R;
+import sv.edu.ues.vl23003.stockflow.database.AppDatabase;
 import sv.edu.ues.vl23003.stockflow.database.Producto;
 import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
 import sv.edu.ues.vl23003.stockflow.databinding.ActivityEditarProductoBinding;
@@ -38,7 +39,7 @@ public class EditarProductoActivity extends AppCompatActivity {
 
         setContentView(binding.getRoot());
 
-        dao = new ProductoDAO(this);
+        dao = AppDatabase.getInstance(this).productoDAO();
 
         configurarGaleria();
 
