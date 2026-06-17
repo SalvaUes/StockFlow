@@ -6,28 +6,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
-import sv.edu.ues.vl23003.stockflow.R;
-import sv.edu.ues.vl23003.stockflow.database.AppDatabase;
-import sv.edu.ues.vl23003.stockflow.database.Producto;
-import sv.edu.ues.vl23003.stockflow.database.ProductoDAO;
-import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import sv.edu.ues.vl23003.stockflow.Adapter.ProductoAdapter;
+import sv.edu.ues.vl23003.stockflow.R;
+import sv.edu.ues.vl23003.stockflow.database.Producto;
+import sv.edu.ues.vl23003.stockflow.database.ProductoRepository;
+import sv.edu.ues.vl23003.stockflow.utils.PrefManager;
+
 public class InicioFragment extends Fragment {
 
-    private ProductoDAO productoDAO;
+    private ProductoRepository repository;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_inicio, container, false);
 
-        productoDAO = AppDatabase.getInstance(requireContext()).productoDAO();
+        repository = new ProductoRepository(requireContext());
+
         PrefManager prefManager = new PrefManager(requireContext());
         TextView tvBienvenida = view.findViewById(R.id.tvBienvenida);
-        TextView tvCountProductos = view.findViewById(R.id.tvCountProductos);
 
         String usuario = prefManager.getUsuario();
         if (!usuario.isEmpty()) {
@@ -36,23 +39,26 @@ public class InicioFragment extends Fragment {
             tvBienvenida.setText(getString(R.string.bienvenida_default));
         }
 
-        actualizarContador(tvCountProductos);
+        TextView tvTotalProductos = view.findViewById(R.id.tvTotalProductos);
+        TextView tvValorInventario = view.findViewById(R.id.tvValorInventario);
+        TextView tvAlertasStock = view.findViewById(R.id.tvAlertasStock);
+        RecyclerView rvProductosBajoStock = view.findViewById(R.id.rvProductosBajoStock);
+
+        int totalProductos = repository.getTotalProductos();
+        double valorInventario = repository.getValorTotalInventario();
+        int cantidadBajoStock = repository.getCantidadProductosBajoStock();
+        List<Producto> listaBajoStock = repository.getProductosBajoStock();
+
+        tvTotalProductos.setText(String.valueOf(totalProductos));
+        tvValorInventario.setText(String.format("$%.2f", valorInventario));
+        tvAlertasStock.setText(String.valueOf(cantidadBajoStock));
+
+        if (!listaBajoStock.isEmpty()) {
+            ProductoAdapter adapter = new ProductoAdapter(requireContext(), listaBajoStock);
+            rvProductosBajoStock.setLayoutManager(new LinearLayoutManager(requireContext()));
+            rvProductosBajoStock.setAdapter(adapter);
+        }
 
         return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        View v = getView();
-        if (v != null) {
-            TextView tvCount = v.findViewById(R.id.tvCountProductos);
-            actualizarContador(tvCount);
-        }
-    }
-
-    private void actualizarContador(TextView tvCount) {
-        List<Producto> productos = productoDAO.obtenerTodos();
-        tvCount.setText(String.valueOf(productos.size()));
     }
 }
